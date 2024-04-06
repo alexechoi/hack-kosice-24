@@ -10,7 +10,13 @@ import { getAnalytics } from "firebase/analytics";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-// firebase config here
+  apiKey: "AIzaSyBhM6IgtJrFBUQA4HMNeODPBgSoD3c71iU",
+  authDomain: "tatra-bank-hk.firebaseapp.com",
+  projectId: "tatra-bank-hk",
+  storageBucket: "tatra-bank-hk.appspot.com",
+  messagingSenderId: "865522407849",
+  appId: "1:865522407849:web:a8fdecb8ee824c05908cb8",
+  measurementId: "G-RYYQ1RJGYV"
 };
 
 // Initialize Firebase

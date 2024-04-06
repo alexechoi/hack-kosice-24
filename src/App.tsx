@@ -9,23 +9,27 @@ import TradingPage from './pages/TradingPage/TradingPage';
 import { AuthProvider, AuthContext } from './AuthContext';
 import SigninPage from './pages/SigninPage/SigninPage';
 import ProtectedRoute from './ProtectedRoute';
+import AuthLogger from './AuthLogger';
 
 function App() {
     return (
         <AuthProvider>
+            <AuthLogger />
             <Router>
-                <main className="App">
-                    <Navbar />
-                    <Routes>
-                        <Route path="/" element={<ProtectedRoute element={HomePage} />} />
-                        <Route path="/tips" element={<ProtectedRoute element={TipsPage} />} />
-                        <Route path="/search" element={<ProtectedRoute element={SearchPage} />} />
-                        <Route path="/signin" element={<SigninPage />} />
-                    </Routes>
-                    <Tabbar />
-                </main>
+            <main className="App">
+                <Navbar />
+                <Routes>
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/tips" element={<TipsPage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                </Route>
+                <Route path="/signin" element={<SigninPage />} />
+                </Routes>
+                <Tabbar />
+            </main>
             </Router>
-        </AuthProvider>
+      </AuthProvider>
     );
 }
 

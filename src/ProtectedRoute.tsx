@@ -1,17 +1,16 @@
 // src/ProtectedRoute.tsx
 import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const { currentUser } = useContext(AuthContext);
 
   if (!currentUser) {
-    // Redirect them to the /signin page
     return <Navigate to="/signin" />;
   }
 
-  return children;
+  return <Outlet />; // Use Outlet to render child routes
 };
 
 export default ProtectedRoute;
