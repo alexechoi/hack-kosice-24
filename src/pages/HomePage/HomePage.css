@@ -1,8 +1,8 @@
 .stock-list {
     padding: 10px;
     background-color: #fff;
-    color: #000
-  }
+    color: #000;
+}
   
 .stock-item {
     display: flex;
@@ -49,4 +49,51 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+}
+
+/* Hero Area Styles */
+.hero-area {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* Distributes space between items and aligns them to the edges */
+    align-items: center; /* Centers items vertically */
+    margin-bottom: 20px; /* Adds space between the hero area and the stock list */
+}
+
+.hero-area h1,
+.hero-area p {
+    text-align: left; /* Aligns the text to the left */
+    margin: 0;
+    font-weight: bold; /* Makes text bold */
+    color: white;
+}
+
+.hero-area h1 {
+    font-size: 24px; /* Adjust to your preference */
+}
+
+.hero-area p {
+    font-size: 18px; /* Adjust to your preference */
+}
+
+/* Style for the tips button */
+.tips-button {
+    background-color: transparent;
+    border: 2px solid white;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 4px; /* Optional: if you prefer rounded corners */
+    outline: none; /* Removes the outline */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover state */
+    background-color: white;
+}
+
+.tips-button:hover {
+    background-color: black;
+    color: black;
+}

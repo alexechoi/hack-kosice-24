@@ -8,81 +8,104 @@ import './HomePage.css';
 
 function HomePage() {
   const [stocks, setStocks] = useState([]);
+  const [userDetails, setUserDetails] = useState({ name: '', balance: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchStocks = async () => {
+    const fetchStocksAndUserDetails = async () => {
       setIsLoading(true);
       if (currentUser) {
         console.log('Current user:', currentUser.uid);
-        const portfolioRef = collection(db, "portfolios");
-        const q = query(portfolioRef, where("uid", "==", currentUser.uid));
-        const portfolioSnapshot = await getDocs(q);
 
-        console.log('Portfolio snapshot empty:', portfolioSnapshot.empty);
+        // Fetch user details
+        const usersRef = collection(db, "users");
+        const userQuery = query(usersRef, where("uid", "==", currentUser.uid));
+        const userSnapshot = await getDocs(userQuery);
+
+        if (!userSnapshot.empty) {
+          const userData = userSnapshot.docs[0].data();
+          setUserDetails({
+            name: `${userData.firstName} ${userData.lastName}`,
+            balance: userData.balance
+          });
+        }
+
+        // Fetch stocks
+        const portfolioRef = collection(db, "portfolios");
+        const portfolioQuery = query(portfolioRef, where("uid", "==", currentUser.uid));
+        const portfolioSnapshot = await getDocs(portfolioQuery);
+
         if (!portfolioSnapshot.empty) {
-          const userPortfolioDoc = portfolioSnapshot.docs[0];
-          console.log('User portfolio doc:', userPortfolioDoc.data());
-          const stocksRef = collection(userPortfolioDoc.ref, "stocks");
+          const stocksRef = collection(portfolioSnapshot.docs[0].ref, "stocks");
           const stocksSnapshot = await getDocs(stocksRef);
 
-          console.log('Number of stocks fetched:', stocksSnapshot.docs.length);
           const stocksData = stocksSnapshot.docs.map(doc => {
             const data = doc.data();
-            console.log('Stock data:', data);
             const logoUrl = `https://financialmodelingprep.com/image-stock/${data.ticker}.png`;
             return {
               id: doc.id,
               ...data,
-              logoUrl, // Include logo URL instead of emoji
+              logoUrl,
             };
           });
 
           setStocks(stocksData);
-          setIsLoading(false);
-        } else {
-          console.log('No portfolio document found for the current user.');
         }
+        setIsLoading(false);
       } else {
         console.log('No current user.');
         setIsLoading(false);
       }
     };
 
-    fetchStocks();
+    fetchStocksAndUserDetails();
   }, [currentUser]);
 
   const handleStockClick = (companyName, symbol) => {
     navigate('/trading', { state: { companyName: companyName, symbol: symbol } });
-  };  
+  };
 
   const handleImageError = (e) => {
-    e.target.onerror = null; // Prevent endless loop
-    e.target.src = ""; // Hide broken image icon
-    e.target.nextSibling.style.display = "inline"; // Show fallback emoji
+    e.target.onerror = null;
+    e.target.src = "";
+    e.target.nextSibling.style.display = "inline";
+  };
+
+  const handleGetTips = () => {
+    // You can define the logic for when the button is clicked
+    console.log('Get your tips button clicked');
   };
 
   return (
-    <div className="stock-list">
-      {isLoading ? (
-        <div className="loader-container">
-          <CircleLoader color="#00BFFF" size={150} />
+    <div>
+     <div className="hero-area">
+        <div>
+          <h1>Welcome, {userDetails.name}</h1>
+          <p>Your balance: €{userDetails.balance}</p>
         </div>
-      ) : (
-        stocks.map(stock => (
-          <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
-            <img src={stock.logoUrl} alt={stock.companyName} className="stock-icon" onError={handleImageError} style={{display: stock.logoUrl ? 'inline' : 'none'}} />
-            <span className="stock-emoji" style={{display: 'none'}}>💼</span> {/* This will be shown if img fails to load */}
-            <div className="stock-info">
-              <h2 className="stock-name">{stock.companyName}</h2>
-              <p className="stock-symbol">{stock.ticker}</p>
-            </div>
-            <div className="stock-price">{`$${stock.purchasePrice.toFixed(2)}`}</div>
+        <button className="tips-button" onClick={handleGetTips}>Get your tips</button>
+      </div>
+      <div className="stock-list">
+        {isLoading ? (
+          <div className="loader-container">
+            <CircleLoader color="#00BFFF" size={150} />
           </div>
-        ))
-      )}
+        ) : (
+          stocks.map(stock => (
+            <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
+              <img src={stock.logoUrl} alt={stock.companyName} className="stock-icon" onError={handleImageError} style={{display: stock.logoUrl ? 'inline' : 'none'}} />
+              <span className="stock-emoji" style={{display: 'none'}}>💼</span>
+              <div className="stock-info">
+                <h2 className="stock-name">{stock.companyName}</h2>
+                <p className="stock-symbol">{stock.ticker}</p>
+              </div>
+              <div className="stock-price">{`$${stock.purchasePrice.toFixed(2)}`}</div>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
