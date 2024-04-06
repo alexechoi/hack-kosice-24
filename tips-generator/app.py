@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 @app.route('/get-tip', methods=['POST'])
 def summarize():
