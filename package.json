@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "node": "^18.20.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20.12.5",
+    "tsc-watch": "^6.2.0",
+    "typescript": "^5.4.4"
+  }
+}
