@@ -16,11 +16,11 @@ function HomePage() {
     const fetchStocks = async () => {
       setIsLoading(true);
       if (currentUser) {
-        console.log('Current user:', currentUser.uid); // Log the UID of the current user
+        console.log('Current user:', currentUser.uid);
         const portfolioRef = collection(db, "portfolios");
         const q = query(portfolioRef, where("uid", "==", currentUser.uid));
         const portfolioSnapshot = await getDocs(q);
-        
+
         console.log('Portfolio snapshot empty:', portfolioSnapshot.empty);
         if (!portfolioSnapshot.empty) {
           const userPortfolioDoc = portfolioSnapshot.docs[0];
@@ -32,10 +32,11 @@ function HomePage() {
           const stocksData = stocksSnapshot.docs.map(doc => {
             const data = doc.data();
             console.log('Stock data:', data);
+            const logoUrl = `https://financialmodelingprep.com/image-stock/${data.ticker}.png`;
             return {
               id: doc.id,
               ...data,
-              emoji: '💼',
+              logoUrl, // Include logo URL instead of emoji
             };
           });
 
@@ -57,6 +58,12 @@ function HomePage() {
     navigate('/trading', { state: { companyName: companyName, symbol: symbol } });
   };  
 
+  const handleImageError = (e) => {
+    e.target.onerror = null; // Prevent endless loop
+    e.target.src = ""; // Hide broken image icon
+    e.target.nextSibling.style.display = "inline"; // Show fallback emoji
+  };
+
   return (
     <div className="stock-list">
       {isLoading ? (
@@ -66,7 +73,8 @@ function HomePage() {
       ) : (
         stocks.map(stock => (
           <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
-            <span className="stock-icon">{stock.emoji}</span>
+            <img src={stock.logoUrl} alt={stock.companyName} className="stock-icon" onError={handleImageError} style={{display: stock.logoUrl ? 'inline' : 'none'}} />
+            <span className="stock-emoji" style={{display: 'none'}}>💼</span> {/* This will be shown if img fails to load */}
             <div className="stock-info">
               <h2 className="stock-name">{stock.companyName}</h2>
               <p className="stock-symbol">{stock.ticker}</p>

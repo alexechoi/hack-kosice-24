@@ -13,7 +13,11 @@
 }
 
 .stock-icon {
-    font-size: 24px; /* Adjust size to match your design */
+    width: 50px; /* Limit width to keep logos uniform */
+    height: 50px; /* Limit height to keep logos uniform */
+    object-fit: contain; /* Ensures logos are scaled properly, maintaining their aspect ratio */
+    margin-right: 10px; /* Optional: Adds some spacing between the logo and stock info */
+    background-color: #f0f0f0;
 }
 
 .stock-info {
