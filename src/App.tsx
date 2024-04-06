@@ -5,6 +5,7 @@ import { Tabbar } from "./components/Tabbar/Tabbar";
 import HomePage from './pages/HomePage/HomePage';
 import TipsPage from './pages/TipsPage/TipsPage';
 import SearchPage from './pages/SearchPage/SearchPage';
+import TradingPage from './pages/TradingPage/TradingPage';
 
 function App() {
     return (
