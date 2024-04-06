@@ -1,3 +1,5 @@
+// src/pages/SigninPage/SigninPage.tsx
+
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SigninPage.css';
@@ -7,7 +9,7 @@ import { AuthContext } from '../../AuthContext';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../../firebaseConfig';
 
-const Login = () => {
+const SigninPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -58,4 +60,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SigninPage;
