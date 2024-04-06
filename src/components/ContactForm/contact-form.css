@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    font-family: "Open sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #242424;
+    
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  
+}
+
+.contact-form {
+  color: #333333;
+  background-color: #efe2ff;
+  
+  border: 2px solid #DABFFF;
+  border-radius: 0.8rem;
+  
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  
+  align-items: center;
+  
+  width: 25rem;
+  height: 46rem;
+}
+
+.contact-form h1 {
+    font-size: 2em;
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-right: 5rem;
+    padding-bottom: 1rem;
+    padding-left: 5rem;
+    box-sizing: border-box;
+}

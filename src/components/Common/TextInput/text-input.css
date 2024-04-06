@@ -1,0 +1,32 @@
+.text-input {
+    align-items: center; 
+    
+    box-sizing: border-box;
+    padding: .5rem 2.3rem .5rem 1rem;
+}
+
+.text-input label {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.text-input__input {
+    color: #333333;
+    background-color: white;
+    
+    font-family: inherit;
+    font-size: inherit;  
+    font-weight: inherit;
+
+    border: 2px solid #DABFFF;
+    border-radius: 0.5rem;
+
+    padding: .5rem .1rem .5rem 1rem;
+
+    align-items: center;
+    
+    width: 100%;
+    height: 1.5rem;
+    
+}

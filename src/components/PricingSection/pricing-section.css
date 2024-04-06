@@ -1,0 +1,75 @@
+.pricing-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    padding: 2em, 4em, 2em, 4em;
+}
+
+.pricing-section h1 {
+    display: block;
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-right: 30rem;
+    padding-bottom: 1.5rem;
+    padding-left: 30rem;
+    @media (max-width: 768px) {
+        padding-top: 1.5rem;
+        padding-right: 2rem;
+        padding-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
+    box-sizing: border-box;
+}
+
+.pricing-section h2 {
+    padding-left: 1rem;
+}
+
+h3 {
+    font-size: 2rem;
+    display: inline;
+    margin-left: 1rem;
+    padding: 5rem, 0, 3rem, 0;
+}
+
+h4 {
+    display: inline;
+}
+
+p {
+    text-align: center;
+    padding: 1rem, .4rem, 1rem, .4rem;
+}
+
+.pricing-section__header {
+    box-sizing: border-box;
+}
+
+.pricing-section__section {
+    color: #333333;
+    width: 18rem;
+    margin: 0.5em;
+    box-sizing: border-box;
+    
+    
+    background-color: #FFFFFF;
+    
+    font-family: inherit;
+    font-size: inherit;  
+    font-weight: inherit;
+    
+    border: 2px solid #A0A0A0;
+    border-radius: 0.5rem;
+    order: 2;
+    
+    /* padding: .5rem .1rem .5rem 1rem; */
+}
+
+.pricing-section__section[data-isMostPopular=true] {
+    border: 2px solid #6A994E;
+    border-radius: 0.5rem;
+    @media (max-width: 768px) {
+        order: 1;
+    }
+}
