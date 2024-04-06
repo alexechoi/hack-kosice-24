@@ -8,6 +8,7 @@ let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
 let gameSpeed = 80; // initial game speed
 let snake = [];
+let obstacles = [];
 snake[0] = { x: 8 * box, y: 8 * box };
 let direction = "right";
 
@@ -30,6 +31,18 @@ function createSnake() {
     }
 }
 
+function generateObstacle() {
+    let obstacle = {
+        x: Math.floor(Math.random() * 13 + 1) * box,
+        y: Math.floor(Math.random() * 13 + 1) * box,
+        size: Math.floor(Math.random() * 4 + 2) * box // size of obstacle (2-4 boxes)
+    }
+    obstacles.push(obstacle);
+}
+
+setInterval(generateObstacle, Math.random() * 5000 + 5000); // generate an obstacle every 5-10 seconds
+
+
 function drawFood() {
     context.fillStyle = "red";
     context.fillRect(food.x + box/4, food.y + box/4, box/2, box/2); // smaller apple
@@ -40,6 +53,14 @@ function drawScore() {
     context.font = "20px Arial";
     context.fillText("Score: " + score, box, box);
 }
+
+function drawObstacles() {
+    context.fillStyle = "blue";
+    for (let i = 0; i < obstacles.length; i++) {
+        context.fillRect(obstacles[i].x, obstacles[i].y, box, box);
+    }
+}
+
 
 canvas.addEventListener('click', update);
 
@@ -59,6 +80,17 @@ function update(event) {
         else direction = "up";
     }
 }
+
+function checkCollisionWithObstacles() {
+    for (let i = 0; i < obstacles.length; i++) {
+        if (snake[0].x >= obstacles[i].x && snake[0].x < obstacles[i].x + obstacles[i].size &&
+            snake[0].y >= obstacles[i].y && snake[0].y < obstacles[i].y + obstacles[i].size) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 function checkLevelUp() {
     if (score >= levelThresholds[level - 1]) {
@@ -85,9 +117,15 @@ function startGame() {
         }
     }
 
+    if (checkCollisionWithObstacles()) {
+        clearInterval(game);
+        alert('Game Over :(');
+    }
+
     createBG();
     createSnake();
     drawFood();
+    drawObstacles(); // draw obstacles
     drawScore();
 
     let snakeX = snake[0].x;

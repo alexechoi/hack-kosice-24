@@ -8,6 +8,7 @@ let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
 let gameSpeed = 280; // initial game speed
 let snake = [];
+let obstacles = [];
 snake[0] = { x: 8 * box, y: 8 * box };
 let direction = "right";
 
@@ -30,9 +31,36 @@ function createSnake() {
     }
 }
 
+function generateObstacle() {
+    let obstacle = {
+        x: Math.floor(Math.random() * 15 + 1) * box,
+        y: Math.floor(Math.random() * 15 + 1) * box
+    }
+    obstacles.push(obstacle);
+}
+
+setInterval(generateObstacle, Math.random() * 10000 + 15000); // generate an obstacle every 15-25 seconds
+
 function drawFood() {
     context.fillStyle = "red";
-    context.fillRect(food.x + box/4, food.y + box/4, box/2, box/2);
+    context.fillRect(food.x + box/2, food.y + box/2, box/2, box/2);
+}
+
+
+function drawObstacles() {
+    context.fillStyle = "blue";
+    for (let i = 0; i < obstacles.length; i++) {
+        context.fillRect(obstacles[i].x + box/4, obstacles[i].y + box/4, box/2, box/2);
+    }
+}
+
+function checkCollisionWithObstacles() {
+    for (let i = 0; i < obstacles.length; i++) {
+        if (snake[0].x == obstacles[i].x && snake[0].y == obstacles[i].y) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function drawScore() {
@@ -40,6 +68,7 @@ function drawScore() {
     context.font = "20px Arial";
     context.fillText("Score: " + score, box, box);
 }
+
 
 canvas.addEventListener('click', update);
 
@@ -85,9 +114,15 @@ function startGame() {
         }
     }
 
+    if (checkCollisionWithObstacles()) {
+        clearInterval(game);
+        alert('Game Over :(');
+    }
+
     createBG();
     createSnake();
     drawFood();
+    drawObstacles(); // draw obstacles
     drawScore();
 
     let snakeX = snake[0].x;
