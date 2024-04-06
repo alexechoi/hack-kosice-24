@@ -8,13 +8,13 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 OPENAI_API_KEY = ""
 
-@app.route('/summarize', methods=['POST'])
+@app.route('/get-tip', methods=['POST'])
 def summarize():
     data = request.json
     user_message = data.get("message")
 
     # Construct a prompt that creates a tip
-    prompt_message = f""
+    prompt_message = f"Create a trading tip for a user that has little or no experience in trading. Utilise uncommonly known tips"
 
     response = requests.post(
         "https://api.openai.com/v1/chat/completions",
