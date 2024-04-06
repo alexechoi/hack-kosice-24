@@ -13,7 +13,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <h1 className="navbar-title">Stocks App</h1>
+                <h1 className="navbar-title">StockSnake</h1>
                 <div className="navbar-icons">
                     <Link to="/search" className="icon-button">🔍</Link>
                 </div>
