@@ -35,9 +35,11 @@ function generateObstacle() {
     let obstacle = {
         x: Math.floor(Math.random() * 13 + 1) * box,
         y: Math.floor(Math.random() * 13 + 1) * box,
+        time: Date.now(), // record the time when the obstacle is created
         size: Math.floor(Math.random() * 4 + 2) * box // size of obstacle (2-4 boxes)
     }
     obstacles.push(obstacle);
+    
 }
 
 setInterval(generateObstacle, Math.random() * 5000 + 5000); // generate an obstacle every 5-10 seconds
@@ -57,7 +59,11 @@ function drawScore() {
 function drawObstacles() {
     context.fillStyle = "blue";
     for (let i = 0; i < obstacles.length; i++) {
-        context.fillRect(obstacles[i].x, obstacles[i].y, box, box);
+        context.fillStyle = "blue";
+        context.fillRect(obstacles[i].x + box, obstacles[i].y + box, box, box);
+        context.strokeStyle = "black";
+        context.lineWidth = 5;
+        context.strokeRect(obstacles[i].x + box, obstacles[i].y + box, box, box);
     }
 }
 
@@ -104,6 +110,11 @@ function checkLevelUp() {
     }
 }
 
+function updateObstacles() {
+    let currentTime = Date.now();
+    obstacles = obstacles.filter(obstacle => currentTime - obstacle.time < 5000); // remove obstacles that are older than 5 seconds
+}
+
 function startGame() {
     if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
     if (snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
@@ -116,6 +127,8 @@ function startGame() {
             alert('Game Over :(');
         }
     }
+
+    updateObstacles(); // update the obstacles
 
     if (checkCollisionWithObstacles()) {
         clearInterval(game);

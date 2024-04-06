@@ -34,10 +34,13 @@ function createSnake() {
 function generateObstacle() {
     let obstacle = {
         x: Math.floor(Math.random() * 15 + 1) * box,
-        y: Math.floor(Math.random() * 15 + 1) * box
+        y: Math.floor(Math.random() * 15 + 1) * box,
+        time: Date.now() // record the time when the obstacle is created
     }
     obstacles.push(obstacle);
 }
+
+
 
 setInterval(generateObstacle, Math.random() * 10000 + 15000); // generate an obstacle every 15-25 seconds
 
@@ -51,7 +54,15 @@ function drawObstacles() {
     context.fillStyle = "blue";
     for (let i = 0; i < obstacles.length; i++) {
         context.fillRect(obstacles[i].x + box/4, obstacles[i].y + box/4, box/2, box/2);
+        context.strokeStyle = "black";
+        context.lineWidth = 5;
+        context.strokeRect(obstacles[i].x + box/4, obstacles[i].y + box/4, box/2, box/2);
     }
+}
+
+function updateObstacles() {
+    let currentTime = Date.now();
+    obstacles = obstacles.filter(obstacle => currentTime - obstacle.time < 10000); // remove obstacles that are older than 5 seconds
 }
 
 function checkCollisionWithObstacles() {
@@ -113,6 +124,8 @@ function startGame() {
             alert('Game Over :(');
         }
     }
+
+    updateObstacles(); // update obstacles
 
     if (checkCollisionWithObstacles()) {
         clearInterval(game);
