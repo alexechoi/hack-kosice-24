@@ -1,32 +1,22 @@
-import "./navbar.css";
-import logo from "../../assets/logo.svg";
-import { Button } from "../Common/Button/Button";
+import React from 'react';
+import './navbar.css';
+import { Button } from '../Common/Button/Button';
 
 export const Navbar = () => {
+    const handleSearchClick = () => {
+        // Placeholder function to simulate navigating to a search page
+        console.log('Navigate to the search page.');
+    };
+
     return (
         <nav className="navbar">
-            <div className="navbar__logo">
-                <img src={logo} alt="Logo"/>
-            </div>
-            <div className="navbar__links">
-                <button className="navbar__links categories">
-                    Categories
-                </button>
-                <button className="navbar__links our-mission">
-                    Our mission
-                </button>
-                <button className="navbar__links contact" value="contact">
-                    Contact
-                </button>
-            </div>
-            <div className="navbar__search">
-                <div className="navbar__search input">
-                    <input/>
-                </div>
-                <div className="navbar__search button">
-                    <Button type="secondary" label="Search" icon={undefined}/>
+            <div className="navbar-container">
+                <h1 className="navbar-title">Stocks App</h1>
+                <div className="navbar-icons">
+                    <Button className="icon-button" label="🔍" onClick={handleSearchClick} />
+                    <span className="emoji">😊</span>
                 </div>
             </div>
         </nav>
-    )
+    );
 };
