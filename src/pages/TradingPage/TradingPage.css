@@ -28,6 +28,7 @@
   .trading-company-name {
     font-size: 24px;
     margin: 0;
+    color: black;
   }
   
   .trading-symbol {
@@ -74,7 +75,7 @@
     font-size: 16px;
     cursor: pointer;
     border: 1px solid #dcdcdc; /* Sell button has a border */
-    background-color: #fff; /* Sell button is white */
+    background-color: black; /* Sell button is white */
   }
   
   .trading-buy-button {

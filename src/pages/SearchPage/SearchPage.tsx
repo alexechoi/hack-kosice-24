@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './SearchPage.css';
 
 function SearchPage() {
@@ -7,8 +8,14 @@ function SearchPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const API_KEY = "" // Insert API here
+
+  const handleResultClick = (name, symbol) => {
+    // Navigate to TradingPage with state from the search results
+    navigate('/trading', { state: { companyName: name, symbol: symbol } });
+  };
 
   const handleSearch = async () => {
     if (!searchTerm) return; // Prevent search with empty query
@@ -51,7 +58,7 @@ function SearchPage() {
 
       <div className="search-results">
         {searchResults.map((result) => (
-          <div key={result.symbol} className="search-result">
+          <div key={result.symbol} className="search-result" onClick={() => handleResultClick(result.name, result.symbol)}>
             <span className="search-icon">💼</span>
             <div className="search-info">
               <h2 className="search-company-name">{result.name}</h2>

@@ -1,7 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './TradingPage.css';
 
 function TradingPage() {
+
+  const location = useLocation();
+  const { companyName, symbol } = location.state || { companyName: 'Company XYZ', symbol: 'XYZ' }; // Fallback values
+
   // Placeholder functions for the buttons
   const handleBuy = () => {
     console.log('Buy action');
@@ -14,11 +19,12 @@ function TradingPage() {
   return (
     <div className="trading-container">
       <div className="trading-card">
-        <div className="trading-header">
+      <div className="trading-header">
+          {/* Updated to use passed state */}
           <span className="trading-icon">⚪️</span>
           <div>
-            <h2 className="trading-company-name">Company XYZ</h2>
-            <p className="trading-symbol">XYZ</p>
+            <h2 className="trading-company-name">{companyName}</h2>
+            <p className="trading-symbol">{symbol}</p>
           </div>
         </div>
         <div className="trading-price-info">
