@@ -1,0 +1,78 @@
+.tips-container {
+    padding: 20px;
+  }
+  
+.tips-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tips-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.tips-refresh-btn {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid black; /* Added black border */
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: inline-flex; /* changed from flex to inline-flex */
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.refresh-arrow {
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.tips-refresh-btn:hover .refresh-arrow {
+    transform: translateX(5px); /* Arrow moves to the right on hover */
+}
+
+.tips-refresh:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Optional: stronger shadow on hover */
+    transform: translateY(-2px); /* Optional: slight lift on hover */
+}
+
+/* Styles for the list of tips */
+.tips-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tip-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tip-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.tip-content {
+    flex-grow: 1;
+}
+
+.tip-title {
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+
+.tip-text {
+    font-size: 16px;
+    margin: 0;
+    }
