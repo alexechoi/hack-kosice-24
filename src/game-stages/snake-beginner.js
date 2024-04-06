@@ -3,7 +3,7 @@ let canvas = document.getElementById('game');
 let context = canvas.getContext('2d');
 let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
-let gameSpeed = 350;
+let gameSpeed = 400;
 
 let box = 32;
 let score = 0;
