@@ -3,6 +3,7 @@ let canvas = document.getElementById('game');
 let context = canvas.getContext('2d');
 let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
+let gameSpeed = 350;
 
 let box = 32;
 let score = 0;
@@ -46,7 +47,8 @@ function checkLevelUp() {
         let continueGame = confirm(`You passed level ${level}! Do you want to continue to the next level?`);
         if (continueGame) {
             level++;
-            game = setInterval(startGame, 100 - level * 10); // game speed increases with each level
+            gameSpeed -= 20; // decrease interval to speed up game
+            game = setInterval(startGame, gameSpeed);
         }
     }
 }
@@ -116,4 +118,4 @@ function startGame() {
     snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 100);
+let game = setInterval(startGame, gameSpeed);
