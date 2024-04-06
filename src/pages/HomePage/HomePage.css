@@ -18,6 +18,8 @@
     object-fit: contain; /* Ensures logos are scaled properly, maintaining their aspect ratio */
     margin-right: 10px; /* Optional: Adds some spacing between the logo and stock info */
     background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 50%;
 }
 
 .stock-info {
