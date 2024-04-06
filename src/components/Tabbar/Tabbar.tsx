@@ -1,12 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { To, useNavigate } from 'react-router-dom';
 import './Tabbar.css';
 
 export const Tabbar = () => {
 
     let navigate = useNavigate();
 
-    const navigateTo = (path) => {
+    const navigateTo = (path: To) => { // was without ': To'
         navigate(path);
     };
 
