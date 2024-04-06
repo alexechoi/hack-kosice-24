@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../AuthContext';
 import { db } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
 function HomePage() {
   const [stocks, setStocks] = useState([]);
   const { currentUser } = useContext(AuthContext);
-
-  console.log('HomePage rendering', { currentUser });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStocks = async () => {
@@ -52,10 +52,14 @@ function HomePage() {
     return <div>Loading stocks...</div>; // Provide a loading state or message
   }
 
+  const handleStockClick = (companyName, symbol) => {
+    navigate('/trading', { state: { companyName: companyName, symbol: symbol } });
+  };  
+
   return (
     <div className="stock-list">
       {stocks.map(stock => (
-        <div key={stock.id} className="stock-item">
+        <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
           <span className="stock-icon">{stock.emoji}</span>
           <div className="stock-info">
             <h2 className="stock-name">{stock.companyName}</h2>
