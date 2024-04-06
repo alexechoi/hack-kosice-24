@@ -30,7 +30,7 @@ def calculate_growth(api_key, symbol):
     average_opening_price = sum(opening_prices) / len(opening_prices)
     percentage_change = (latest_price - average_opening_price) / average_opening_price * 100
     percentage_change = round(percentage_change, 3)
-    return ('grow', percentage_change) if percentage_change > 0 else ('fall', percentage_change)
+    return (latest_price, 'grow', percentage_change) if percentage_change > 0 else (latest_price, 'fall', percentage_change)
 
 # Usage
 api_key = "D7CnbrensDxLw5wvdKXSlFHaq90jewFJ"
