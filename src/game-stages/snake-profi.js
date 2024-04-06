@@ -6,7 +6,7 @@ let box = 32;
 let score = 0;
 let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
-let gameSpeed = 280; // initial game speed
+let gameSpeed = 80; // initial game speed
 let snake = [];
 let obstacles = [];
 snake[0] = { x: 8 * box, y: 8 * box };
@@ -33,51 +33,38 @@ function createSnake() {
 
 function generateObstacle() {
     let obstacle = {
-        x: Math.floor(Math.random() * 15 + 1) * box,
-        y: Math.floor(Math.random() * 15 + 1) * box,
-        time: Date.now() // record the time when the obstacle is created
+        x: Math.floor(Math.random() * 13 + 1) * box,
+        y: Math.floor(Math.random() * 13 + 1) * box,
+        time: Date.now(), // record the time when the obstacle is created
+        size: Math.floor(Math.random() * 4 + 2) * box // size of obstacle (2-4 boxes)
     }
     obstacles.push(obstacle);
+    
 }
 
+setInterval(generateObstacle, Math.random() * 5000 + 5000); // generate an obstacle every 5-10 seconds
 
-
-setInterval(generateObstacle, Math.random() * 10000 + 15000); // generate an obstacle every 15-25 seconds
 
 function drawFood() {
     context.fillStyle = "red";
-    context.fillRect(food.x + box/2, food.y + box/2, box/2, box/2);
-}
-
-
-function drawObstacles() {
-    context.fillStyle = "blue";
-    for (let i = 0; i < obstacles.length; i++) {
-        context.fillRect(obstacles[i].x + box/4, obstacles[i].y + box/4, box/2, box/2);
-        context.strokeStyle = "black";
-        context.lineWidth = 5;
-        context.strokeRect(obstacles[i].x + box/4, obstacles[i].y + box/4, box/2, box/2);
-    }
-}
-
-function updateObstacles() {
-    let currentTime = Date.now();
-    obstacles = obstacles.filter(obstacle => currentTime - obstacle.time < 10000); // remove obstacles that are older than 5 seconds
-}
-
-function checkCollisionWithObstacles() {
-    for (let i = 0; i < obstacles.length; i++) {
-        if (snake[0].x == obstacles[i].x && snake[0].y == obstacles[i].y) {
-            return true;
-        }
-    }
-    return false;
+    context.fillRect(food.x + box/4, food.y + box/4, box/2, box/2); // smaller apple
 }
 
 function drawScore() {
     context.fillStyle = "black";
     context.font = "20px Arial";
     context.fillText("Score: " + score, box, box);
+}
+
+function drawObstacles() {
+    context.fillStyle = "blue";
+    for (let i = 0; i < obstacles.length; i++) {
+        context.fillStyle = "blue";
+        context.fillRect(obstacles[i].x + box, obstacles[i].y + box, box, box);
+        context.strokeStyle = "black";
+        context.lineWidth = 5;
+        context.strokeRect(obstacles[i].x + box, obstacles[i].y + box, box, box);
+    }
 }
 
 
@@ -100,16 +87,32 @@ function update(event) {
     }
 }
 
+function checkCollisionWithObstacles() {
+    for (let i = 0; i < obstacles.length; i++) {
+        if (snake[0].x >= obstacles[i].x && snake[0].x < obstacles[i].x + obstacles[i].size &&
+            snake[0].y >= obstacles[i].y && snake[0].y < obstacles[i].y + obstacles[i].size) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 function checkLevelUp() {
     if (score >= levelThresholds[level - 1]) {
         clearInterval(game);
         let continueGame = confirm(`You passed level ${level}! Do you want to continue to the next level?`);
         if (continueGame) {
             level++;
-            gameSpeed -= 30; // decrease interval to speed up game
+            gameSpeed -= 40; // decrease interval to speed up game
             game = setInterval(startGame, gameSpeed);
         }
     }
+}
+
+function updateObstacles() {
+    let currentTime = Date.now();
+    obstacles = obstacles.filter(obstacle => currentTime - obstacle.time < 5000); // remove obstacles that are older than 5 seconds
 }
 
 function startGame() {
@@ -125,7 +128,7 @@ function startGame() {
         }
     }
 
-    updateObstacles(); // update obstacles
+    updateObstacles(); // update the obstacles
 
     if (checkCollisionWithObstacles()) {
         clearInterval(game);
