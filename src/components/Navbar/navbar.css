@@ -45,19 +45,17 @@
     box-shadow: none;
 }
 
-/* Add responsiveness if needed */
 @media (max-width: 768px) {
     .navbar-container {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .navbar-icons {
-        margin-top: 10px;
+        order: 2; /* This ensures that the navbar icons are positioned to the right */
     }
 
-    .navbar-title,
-    .icon-button,
-    .emoji {
-        margin-bottom: 10px;
+    .navbar-title {
+        order: 1; /* This ensures that the navbar title is positioned to the left */
     }
 }
