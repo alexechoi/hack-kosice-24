@@ -31,13 +31,16 @@
   }
   
   .search-result {
-    width: calc(100% - 40px); /* Adjust width to padding of the container */
-    max-width: 500px; /* Adjust to match the search input field */
     border-bottom: 1px solid #dcdcdc;
     display: flex;
     align-items: center;
     padding: 15px 0; /* Increased padding for a taller result field */
     margin: 20px 0;
+    width: 100%;
+  }
+
+  .search-results {
+    width: 100%;
   }
   
   .search-icon {
