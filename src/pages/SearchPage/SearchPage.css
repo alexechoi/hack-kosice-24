@@ -1,0 +1,80 @@
+.search-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Make sure the container takes the full width */
+  }
+  
+  .search-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center; /* Align title text to center if needed */
+    width: 100%;
+  }
+  
+  .search-input {
+    width: calc(100% - 40px); /* Adjust width to padding of the container */
+    max-width: 500px; /* You can adjust this value based on your design */
+    padding: 15px 20px; /* Increased padding for a taller input field */
+    margin: 20px 0;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .search-example {
+    font-size: 14px;
+    color: #777;
+    text-align: center; /* Align example text to center */
+    width: 100%;
+  }
+  
+  .search-result {
+    width: calc(100% - 40px); /* Adjust width to padding of the container */
+    max-width: 500px; /* Adjust to match the search input field */
+    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    padding: 15px 0; /* Increased padding for a taller result field */
+    margin: 20px 0;
+  }
+  
+  .search-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .search-info {
+    flex-grow: 1;
+  }
+  
+  .search-company-name {
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .search-stock-symbol {
+    font-size: 14px;
+    margin: 0;
+    color: #555;
+  }
+  
+  .search-button {
+    width: 100%; /* Full width button */
+    max-width: 500px; /* Adjust to match the search input field */
+    padding: 15px 0; /* Increased padding for a taller button */
+    font-size: 16px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px; /* Add margin to the top of the button */
+  }
+  
+  .search-button:hover {
+    background-color: #333;
+  }  
