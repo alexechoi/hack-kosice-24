@@ -1,6 +1,8 @@
 // JavaScript
 let canvas = document.getElementById('game');
 let context = canvas.getContext('2d');
+let level = 1;
+let levelThresholds = [5, 10, 20, 50, 100];
 
 let box = 32;
 let score = 0;
@@ -37,6 +39,18 @@ function drawScore() {
     context.font = "20px Arial";
     context.fillText("Score: " + score, box, box);
 }
+
+function checkLevelUp() {
+    if (score >= levelThresholds[level - 1]) {
+        clearInterval(game);
+        let continueGame = confirm(`You passed level ${level}! Do you want to continue to the next level?`);
+        if (continueGame) {
+            level++;
+            game = setInterval(startGame, 100 - level * 10); // game speed increases with each level
+        }
+    }
+}
+
 
 canvas.addEventListener('click', update);
 
@@ -91,6 +105,7 @@ function startGame() {
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
         score++;
+        checkLevelUp();
     }
 
     let newHead = {
