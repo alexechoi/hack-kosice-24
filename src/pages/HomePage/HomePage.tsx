@@ -3,15 +3,18 @@ import { AuthContext } from '../../AuthContext';
 import { db } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { CircleLoader } from 'react-spinners';
 import './HomePage.css';
 
 function HomePage() {
   const [stocks, setStocks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStocks = async () => {
+      setIsLoading(true);
       if (currentUser) {
         console.log('Current user:', currentUser.uid); // Log the UID of the current user
         const portfolioRef = collection(db, "portfolios");
@@ -37,20 +40,18 @@ function HomePage() {
           });
 
           setStocks(stocksData);
+          setIsLoading(false);
         } else {
           console.log('No portfolio document found for the current user.');
         }
       } else {
         console.log('No current user.');
+        setIsLoading(false);
       }
     };
 
     fetchStocks();
   }, [currentUser]);
-
-  if (stocks.length === 0) {
-    return <div>Loading stocks...</div>; // Provide a loading state or message
-  }
 
   const handleStockClick = (companyName, symbol) => {
     navigate('/trading', { state: { companyName: companyName, symbol: symbol } });
@@ -58,16 +59,22 @@ function HomePage() {
 
   return (
     <div className="stock-list">
-      {stocks.map(stock => (
-        <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
-          <span className="stock-icon">{stock.emoji}</span>
-          <div className="stock-info">
-            <h2 className="stock-name">{stock.companyName}</h2>
-            <p className="stock-symbol">{stock.ticker}</p>
-          </div>
-          <div className="stock-price">{`$${stock.purchasePrice.toFixed(2)}`}</div>
+      {isLoading ? (
+        <div className="loader-container">
+          <CircleLoader color="#00BFFF" size={150} />
         </div>
-      ))}
+      ) : (
+        stocks.map(stock => (
+          <div key={stock.id} className="stock-item" onClick={() => handleStockClick(stock.companyName, stock.ticker)}>
+            <span className="stock-icon">{stock.emoji}</span>
+            <div className="stock-info">
+              <h2 className="stock-name">{stock.companyName}</h2>
+              <p className="stock-symbol">{stock.ticker}</p>
+            </div>
+            <div className="stock-price">{`$${stock.purchasePrice.toFixed(2)}`}</div>
+          </div>
+        ))
+      )}
     </div>
   );
 }

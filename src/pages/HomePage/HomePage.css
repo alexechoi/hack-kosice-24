@@ -37,3 +37,10 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
