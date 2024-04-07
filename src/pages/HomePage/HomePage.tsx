@@ -101,7 +101,7 @@ function HomePage() {
 
   return (
     <div>
-     <div className="hero-area">
+      <div className="hero-area">
         <div>
           <h1>Welcome, {userDetails.name}</h1>
           <p>Your balance: €{userDetails.balance}</p>

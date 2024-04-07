@@ -1,9 +1,14 @@
+.hero-area {
+    background-color: #fff;
+}
+
 .stock-list {
     padding: 10px;
     background-color: #fff;
+    /* background-color: #ffffff7e; */
     color: #000;
 }
-  
+
 .stock-item {
     display: flex;
     align-items: center;
