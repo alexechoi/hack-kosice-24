@@ -30,8 +30,8 @@ body {
 
 button, input[type="submit"], input[type="reset"] {
 	background: none;
-	color: inherit;
-	border: none;
+	color: lightblue;
+	border: blue;
 	padding: 0;
 	font: inherit;
 	cursor: pointer;

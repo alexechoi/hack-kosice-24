@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgb(48, 124, 255);
     padding: 10px 0;
 }
 
@@ -68,26 +68,26 @@
     margin-bottom: 20px; /* Adds space between the hero area and the stock list */
 }
 
-.hero-area h1,
 .hero-area p {
     text-align: left; /* Aligns the text to the left */
     margin: 0;
     color: white;
+    font-size: 18px; /* Adjust to your preference */
 }
 
 .hero-area h1 {
+    text-align: left; /* Aligns the text to the left */
+    margin: 0;
+    color: white;
+    font-size: 18px; /* Adjust to your preference */
     font-size: 24px; /* Adjust to your preference */
     font-weight: bold; /* Makes text bold */
-}
-
-.hero-area p {
-    font-size: 18px; /* Adjust to your preference */
 }
 
 /* Style for the tips button */
 .tips-button {
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid black;
     color: black;
     padding: 10px 20px;
     font-size: 16px;
@@ -100,6 +100,7 @@
 }
 
 .tips-button:hover {
+    border: 2px solid rgb(48, 124, 255);
     background-color: black;
     color: white;
 }
