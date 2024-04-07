@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './TradingPage.css';
+import { doc, updateDoc, setDoc, getDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 function TradingPage() {
   const location = useLocation();
@@ -11,6 +13,9 @@ function TradingPage() {
   const [price, setPrice] = useState('');
   const [change, setChange] = useState('');
   const [direction, setDirection] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  const userUid = '46oTvETaa5bgvK5ypnhflntegAi2';
 
   useEffect(() => {
     const constructedLogoUrl = `https://financialmodelingprep.com/image-stock/${symbol}.png`;
@@ -40,9 +45,30 @@ function TradingPage() {
     .catch(error => console.error('Error fetching stock data:', error));
   }, [symbol]);  
 
-  const handleBuy = () => {
-    console.log('Buy action');
-  };
+  const handleBuy = async () => {
+    const stockRef = doc(db, `portfolio/${userUid}/stocks`, symbol);
+  
+    try {
+      const docSnap = await getDoc(stockRef);
+  
+      if (docSnap.exists()) {
+        await updateDoc(stockRef, {
+          numberOfShares: docSnap.data().numberOfShares + 1
+        });
+      } else {
+        await setDoc(stockRef, {
+          companyName: companyName,
+          existing: true,
+          numberOfShares: 1,
+          ticker: symbol
+        });
+      }
+      setShowSuccessMessage(true);
+      setTimeout(() => setShowSuccessMessage(false), 5000); // Hide success message after 5 seconds
+    } catch (error) {
+      console.error('Error updating stock data:', error);
+    }
+  };  
 
   const handleSell = () => {
     console.log('Sell action');
@@ -50,6 +76,9 @@ function TradingPage() {
 
   return (
     <div className="trading-container">
+      {showSuccessMessage && (
+        <div className="success-banner">Stock Purchase Successful!</div>
+      )}
       <div className="trading-card">
         <div className="trading-header">
           {logoUrl && <img src={logoUrl} alt="Company Logo" className="trading-icon" onError={(e) => e.target.style.display = 'none'} />}
