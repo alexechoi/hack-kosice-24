@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './TradingPage.css';
-import { doc, updateDoc, setDoc, getDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, getDoc, getDocs, query, where, collection, addDoc, increment } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 
 function TradingPage() {
@@ -46,29 +46,57 @@ function TradingPage() {
   }, [symbol]);  
 
   const handleBuy = async () => {
-    const stockRef = doc(db, `portfolio/${userUid}/stocks`, symbol);
+    // Retrieve the user's portfolio document based on the uid
+    const portfoliosRef = collection(db, 'portfolios');
+    const portfolioQuery = query(portfoliosRef, where("uid", "==", userUid));
+    const portfolioQuerySnapshot = await getDocs(portfolioQuery);
   
-    try {
-      const docSnap = await getDoc(stockRef);
-  
-      if (docSnap.exists()) {
-        await updateDoc(stockRef, {
-          numberOfShares: docSnap.data().numberOfShares + 1
-        });
-      } else {
-        await setDoc(stockRef, {
-          companyName: companyName,
-          existing: true,
-          numberOfShares: 1,
-          ticker: symbol
-        });
-      }
-      setShowSuccessMessage(true);
-      setTimeout(() => setShowSuccessMessage(false), 5000); // Hide success message after 5 seconds
-    } catch (error) {
-      console.error('Error updating stock data:', error);
+    let portfolioDocRef;
+    if (!portfolioQuerySnapshot.empty) {
+      portfolioDocRef = portfolioQuerySnapshot.docs[0].ref;
+    } else {
+      console.error('No portfolio found for the user');
+      return;
     }
-  };  
+  
+    // Work within the stocks sub-collection of the found portfolio
+    const stocksRef = collection(portfolioDocRef, 'stocks');
+    const stockQuery = query(stocksRef, where("ticker", "==", symbol));
+    const stockQuerySnapshot = await getDocs(stockQuery);
+  
+    if (!stockQuerySnapshot.empty) {
+      const stockDocRef = stockQuerySnapshot.docs[0].ref;
+      await updateDoc(stockDocRef, {
+        numberOfShares: stockQuerySnapshot.docs[0].data().numberOfShares + 1
+      });
+    } else {
+      await addDoc(stocksRef, {
+        companyName: companyName,
+        existing: true,
+        numberOfShares: 1,
+        ticker: symbol
+      });
+    }
+  
+    // Update the user's balance
+    const usersRef = collection(db, 'users');
+    const userQuery = query(usersRef, where("uid", "==", userUid));
+    const userQuerySnapshot = await getDocs(userQuery);
+
+    if (!userQuerySnapshot.empty) {
+      const userDocRef = userQuerySnapshot.docs[0].ref;
+      // Assuming `price` is a number. Ensure it's parsed as a number if it's a string.
+      const stockPrice = parseFloat(price);
+      await updateDoc(userDocRef, {
+        balance: increment(-stockPrice) // Using increment directly here
+      });
+    } else {
+      console.error('User document not found');
+    }
+  
+    setShowSuccessMessage(true);
+    setTimeout(() => setShowSuccessMessage(false), 5000); // Hide success message after 5 seconds
+  };
 
   const handleSell = () => {
     console.log('Sell action');
