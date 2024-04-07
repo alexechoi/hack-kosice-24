@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { doc, updateDoc, setDoc, getDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
+import './GamesPage.css';
 
 const SnakeGameCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -35,21 +36,21 @@ const SnakeGameCanvas: React.FC = () => {
     };
 
     const createBG = () => {
-      context.fillStyle = "lightgreen";
+      context.fillStyle = "lightblue";
       context.fillRect(0, 0, 16 * box, 16 * box);
-      context.strokeStyle = "red";
+      context.strokeStyle = "blue";
       context.strokeRect(0, 0, 16 * box, 16 * box);
     };
 
     const createSnake = () => {
       for (let i = 0; i < snake.length; i++) {
-        context.fillStyle = "green";
+        context.fillStyle = "blue";
         context.fillRect(snake[i].x, snake[i].y, box, box);
       }
     };
 
     const drawFood = () => {
-      context.fillStyle = "red";
+      context.fillStyle = "grey";
       context.fillRect(food.x, food.y, box, box);
     };
 
