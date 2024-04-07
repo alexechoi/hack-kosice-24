@@ -36,15 +36,15 @@ const SnakeGameCanvas: React.FC = () => {
     };
 
     const createBG = () => {
-      context.fillStyle = "lightblue";
+      context.fillStyle = "rgb(157, 230, 255)";
       context.fillRect(0, 0, 16 * box, 16 * box);
-      context.strokeStyle = "blue";
+      context.strokeStyle = "rgb(48, 124, 255)";
       context.strokeRect(0, 0, 16 * box, 16 * box);
     };
 
     const createSnake = () => {
       for (let i = 0; i < snake.length; i++) {
-        context.fillStyle = "blue";
+        context.fillStyle = "rgb(48, 124, 255)";
         context.fillRect(snake[i].x, snake[i].y, box, box);
       }
     };

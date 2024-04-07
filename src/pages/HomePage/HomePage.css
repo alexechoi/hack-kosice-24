@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgb(48, 124, 255);
     padding: 10px 0;
 }
 
@@ -86,7 +86,7 @@
 /* Style for the tips button */
 .tips-button {
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid rgb(48, 124, 255);
     color: black;
     padding: 10px 20px;
     font-size: 16px;
