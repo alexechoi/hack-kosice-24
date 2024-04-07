@@ -96,7 +96,7 @@ function HomePage() {
   };
 
   const handleGetTips = () => {
-    console.log('Get your tips button clicked');
+    navigate('/tips');
   };
 
   return (
