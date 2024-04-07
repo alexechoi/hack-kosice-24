@@ -1,6 +1,5 @@
-// JavaScript
 let canvas = document.getElementById('game');
-let context = canvas.getContext('2d');
+let context = canvas.getContext('2d'); // xd
 let level = 1;
 let levelThresholds = [5, 10, 20, 50, 100];
 let gameSpeed = 400;

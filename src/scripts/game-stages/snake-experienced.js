@@ -31,11 +31,6 @@ function createSnake() {
     }
 }
 
-<<<<<<< HEAD
-function drawFood() {
-    context.fillStyle = "red";
-    context.fillRect(food.x + box/4, food.y + box/4, box/2, box/2);
-=======
 function generateObstacle() {
     let obstacle = {
         x: Math.floor(Math.random() * 15 + 1) * box,
@@ -77,7 +72,6 @@ function checkCollisionWithObstacles() {
         }
     }
     return false;
->>>>>>> frontend-snake-game-update
 }
 
 function drawScore() {
@@ -86,10 +80,6 @@ function drawScore() {
     context.fillText("Score: " + score, box, box);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> frontend-snake-game-update
 canvas.addEventListener('click', update);
 
 function update(event) {
@@ -134,11 +124,6 @@ function startGame() {
         }
     }
 
-<<<<<<< HEAD
-    createBG();
-    createSnake();
-    drawFood();
-=======
     updateObstacles(); // update obstacles
 
     if (checkCollisionWithObstacles()) {
@@ -150,7 +135,6 @@ function startGame() {
     createSnake();
     drawFood();
     drawObstacles(); // draw obstacles
->>>>>>> frontend-snake-game-update
     drawScore();
 
     let snakeX = snake[0].x;
