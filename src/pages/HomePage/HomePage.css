@@ -1,0 +1,105 @@
+.hero-area {
+    background-color: #fff;
+}
+
+.stock-list {
+    padding: 10px;
+    background-color: #fff;
+    /* background-color: #ffffff7e; */
+    color: #000;
+}
+
+.stock-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(48, 124, 255);
+    padding: 10px 0;
+}
+
+.stock-icon {
+    width: 50px; /* Limit width to keep logos uniform */
+    height: 50px; /* Limit height to keep logos uniform */
+    object-fit: contain; /* Ensures logos are scaled properly, maintaining their aspect ratio */
+    margin-right: 10px; /* Optional: Adds some spacing between the logo and stock info */
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 50%;
+}
+
+.stock-info {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.stock-name {
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.stock-symbol {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+.stock-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Hero Area Styles */
+.hero-area {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* Distributes space between items and aligns them to the edges */
+    align-items: center; /* Centers items vertically */
+    margin-bottom: 20px; /* Adds space between the hero area and the stock list */
+}
+
+.hero-area p {
+    text-align: left; /* Aligns the text to the left */
+    margin: 0;
+    color: white;
+    font-size: 18px; /* Adjust to your preference */
+}
+
+.hero-area h1 {
+    text-align: left; /* Aligns the text to the left */
+    margin: 0;
+    color: white;
+    font-size: 18px; /* Adjust to your preference */
+    font-size: 24px; /* Adjust to your preference */
+    font-weight: bold; /* Makes text bold */
+}
+
+/* Style for the tips button */
+.tips-button {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 4px; /* Optional: if you prefer rounded corners */
+    outline: none; /* Removes the outline */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover state */
+    background-color: white;
+}
+
+.tips-button:hover {
+    border: 2px solid rgb(48, 124, 255);
+    background-color: black;
+    color: white;
+}

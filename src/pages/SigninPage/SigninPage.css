@@ -1,0 +1,127 @@
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5; /* Light grey background */
+    font-family: 'Jakarta Sans', sans-serif; /* Specify the font family */
+  }
+  
+  .welcome-content {
+    text-align: center;
+    width: 100%; /* Full width for better control */
+    max-width: 500px; /* Adjust max-width as needed */
+    padding: 20px; /* Reduced padding */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly reduced shadow for subtlety */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Reduced gap */
+  }
+  
+  .error-message {
+    color: red; /* Error message color */
+    background-color: #ffcccc; /* Light red background */
+    border: 1px solid red; /* Red border */
+    padding: 10px;
+    margin-bottom: 10px; /* Space before the next element */
+    border-radius: 5px; /* Slight rounding of corners */
+    text-align: left; /* Align text to the left */
+  }
+  
+  .success-message {
+    color: green; /* Green text color for success */
+    background-color: #ccffcc; /* Light green background */
+    border: 1px solid green; /* Green border */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: left;
+  }
+  
+  .welcome-content h1 {
+    color: #333;
+    font-size: 24px; /* Adjusted for better fit on smaller screens */
+    font-weight: 600; /* Semibold */
+    margin-bottom: 15px; /* Reduced margin */
+  }
+  
+  .welcome-content p {
+    color: #333;
+  }
+  
+  .input-field {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 15px; /* Reduced padding for a tighter look */
+    font-size: 16px;
+    margin-bottom: 10px; /* Reduced space between input fields */
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #4CAF50; /* Green border for focus */
+  }
+  
+  .checkbox-input {
+    margin-right: 10px; /* Space between checkbox and label */
+  }
+  
+  .welcome-button {
+    background-color: black; /* Blue for login */
+    color: white;
+    padding: 10px 15px; /* Reduced padding for a more compact button */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px; /* Adjusted top margin */
+    width: 100%; /* Full-width button */
+  }
+  
+  .welcome-button:hover {
+    background-color: #29c0ea; /* Slightly darker blue on hover */
+    color: white;
+  }
+  
+  /* Styles for flex layout of first and last name */
+  /* Ensure that the flex-row handles wrapping correctly */
+  .flex-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  /* Individual flex items need to be adjusted to take up the correct amount of space */
+  .half-width {
+    flex: 1 1 calc(50% - 5px);
+  }
+  
+  /* Media query for responsive adjustments */
+  @media (max-width: 768px) {
+    .flex-row {
+      flex-direction: column;
+    }
+  
+    .half-width,
+    .country-code-dropdown,
+    .phone-input {
+      width: 100%;
+      flex: none; /* Override previous flex settings */
+    }
+  
+    .phone-input {
+      margin-left: 0; /* Remove the margin for smaller screens */
+    }
+  }
+  
+  /* Media query for smaller screens, adjust the breakpoint as needed */
+  @media (max-width: 600px) {
+    .welcome-content {
+      width: calc(100% - 40px); /* You can increase the subtraction amount for more space */
+      padding: 20px; /* You can increase this value for more padding */
+    }
+  }
+  

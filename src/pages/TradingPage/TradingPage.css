@@ -1,0 +1,110 @@
+.trading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .trading-card {
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+  }
+  
+  .trading-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .trading-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 10px;
+    border-radius: 50%; 
+    background-color: #f0f0f0;
+    display: inline-block;
+    padding: 20px;
+  }
+  
+  .trading-company-name {
+    font-size: 24px;
+    margin: 0;
+    color: black;
+  }
+  
+  .trading-symbol {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .trading-price-info {
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .trading-price-label {
+    font-size: 18px;
+    color: #777;
+    margin: 0;
+  }
+  
+  .trading-price-value {
+    font-size: 30px;
+    margin: 5px 0;
+  }
+  
+  .trading-price-change {
+    font-size: 18px;
+    color: #4CAF50; /* Or the appropriate color based on the value */
+    margin: 0;
+  }
+  
+  .trading-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .trading-sell-button,
+  .trading-buy-button {
+    width: 48%; /* Slightly less than half to account for the gap */
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #dcdcdc; /* Sell button has a border */
+    background-color: black; /* Sell button is white */
+  }
+  
+  .trading-buy-button {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+  
+  .trading-sell-button:hover,
+  .trading-buy-button:hover {
+    opacity: 0.8;
+  }
+
+  .success-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    z-index: 1000;
+  }  
+  
