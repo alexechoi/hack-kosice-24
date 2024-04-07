@@ -76,7 +76,15 @@ const SnakeGameCanvas: React.FC = () => {
           // Continue the game without level up
           startGame();
         }
-      };      
+      };
+
+    const checkFreeStocks = async () => {
+      if (score >= 4) { // 4 is ONLY FOR DEMO
+        const stocksAvailable = ["AAPL", "AMZN", "MSFT", "NVDA"];
+        const randomIndex = Math.floor(Math.random() * stocksAvailable.length);
+        // TODO get info about stocksAvailable[randomIndex] and update user's stocks
+      }
+    }
 
     const updateDirection = (event: MouseEvent) => {
       if (!canvas) return;
@@ -98,7 +106,10 @@ const SnakeGameCanvas: React.FC = () => {
         else direction = "up";
       }
     };
-
+    
+    const updateScoreInDB = async () => {
+      // TODO update score in db
+    } 
     const startGame = () => {
       if (gameIntervalRef.current) clearInterval(gameIntervalRef.current);
 
@@ -132,11 +143,13 @@ const SnakeGameCanvas: React.FC = () => {
           snake.pop();
         } else {
           score++;
+          updateScoreInDB();
           food = {
             x: Math.floor(Math.random() * 15 + 1) * box,
             y: Math.floor(Math.random() * 15 + 1) * box,
           };
           checkLevelUp();
+          checkFreeStocks();
         }
 
         const newHead = { x: snakeX, y: snakeY };

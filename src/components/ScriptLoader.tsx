@@ -1,3 +1,5 @@
+// UNUSED - subbed for pages/GamesPage/SnakeGameCanvas.tsx
+
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import { db } from '../firebaseConfig';
@@ -36,24 +38,24 @@ function ScriptLoader (): JSX.Element {
 		fetchLevelNumber();
 	}, []);
 
-		const script = document.createElement('script');
-		console.log("levelNumber:" + levelNumber);
-		switch (levelNumber) {
-			case 1:
-				script.src = "src/scripts/game-stages/snake-beginner.js";
-				break;
-			case 2:
-				script.src = "src/scripts/game-stages/snake-experienced.js";
-				break;
-			case 3:
-				script.src = "src/scripts/game-stages/snake-pro.js";
-				break;
-			default:
-				console.error("Error while fetching the user's level difficulty");
-		}
-		script.async = true;
+	const script = document.createElement('script');
+	console.log("levelNumber:" + levelNumber);
+	switch (levelNumber) {
+		case 1:
+			script.src = "src/scripts/game-stages/snake-beginner.js";
+			break;
+		case 2:
+			script.src = "src/scripts/game-stages/snake-experienced.js";
+			break;
+		case 3:
+			script.src = "src/scripts/game-stages/snake-pro.js";
+			break;
+		default:
+			console.error("Error while fetching the user's level difficulty");
+	}
+	script.async = true;
 		
-	return <>{script.src}</>;
+	return <script src={script.src}></script>;
 };
 
 export default ScriptLoader;

@@ -1,5 +1,6 @@
 import React from 'react';
 import SnakeGameCanvas from './SnakeGameCanvas'; // Adjust the import path as necessary
+import ScriptLoader from '../../components/ScriptLoader';
 
 function GamesPage(): JSX.Element {
   return (

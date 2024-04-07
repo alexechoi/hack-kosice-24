@@ -118,3 +118,5 @@ function startGame() {
 }
 
 let game = setInterval(startGame, gameSpeed);
+
+return <canvas ref={canvasRef} width="512" height="512" style={{ background: 'lightgrey' }}></canvas>;
