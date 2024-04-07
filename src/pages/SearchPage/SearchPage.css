@@ -18,7 +18,8 @@
     max-width: 500px; /* You can adjust this value based on your design */
     padding: 15px 20px; /* Increased padding for a taller input field */
     margin: 20px 0;
-    border: 1px solid #dcdcdc;
+    border: 1.5px solid rgb(48, 124, 255);
+    background-color: rgb(219, 219, 219);
     border-radius: 4px;
     font-size: 16px;
   }
@@ -31,7 +32,7 @@
   }
   
   .search-result {
-    border-bottom: 1px solid #dcdcdc;
+    border-bottom: 1px solid rgb(48, 124, 255);
     display: flex;
     align-items: center;
     padding: 15px 0; /* Increased padding for a taller result field */
