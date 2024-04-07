@@ -13,11 +13,13 @@
 .navbar-title {
     margin: 0;
     font-size: 24px;
+    order: 1;
 }
 
 .navbar-icons {
     display: flex;
     align-items: center;
+    order: 2;
 }
 
 .navbar-container h1 {
@@ -28,6 +30,8 @@
     align-items: center;
     width: 36px;
     height: 36px;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .icon-button {
@@ -56,17 +60,3 @@
     box-shadow: none;
 }
 
-@media (max-width: 768px) {
-    .navbar-container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .navbar-icons {
-        order: 2; /* This ensures that the navbar icons are positioned to the right */
-    }
-
-    .navbar-title {
-        order: 1; /* This ensures that the navbar title is positioned to the left */
-    }
-}
