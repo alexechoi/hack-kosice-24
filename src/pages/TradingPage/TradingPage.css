@@ -73,26 +73,37 @@
     justify-content: space-between;
   }
   
-  .trading-sell-button,
+  .trading-sell-button {
+    width: 48%; /* Slightly less than half to account for the gap */
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    border: 1px solid #dcdcdc; /* Sell button has a border */
+    background-color: black;
+    transition: background-color 0.3s, color 0.3s;
+  }
   .trading-buy-button {
     width: 48%; /* Slightly less than half to account for the gap */
     padding: 15px;
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
+    color: white;
     border: 1px solid #dcdcdc; /* Sell button has a border */
     background-color: black; /* Sell button is white */
+    transition: background-color 0.3s, color 0.3s;
   }
   
-  .trading-buy-button {
-    background-color: black;
-    color: white;
-    border: none;
+  .trading-sell-button:hover {
+    opacity: 0.8;
+    background-color: rgb(219, 33, 33);
   }
   
-  .trading-sell-button:hover,
   .trading-buy-button:hover {
     opacity: 0.8;
+    background-color: rgb(0, 197, 33); /* Sell button is white */
   }
 
   .success-banner {
