@@ -14,7 +14,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <h1 className="navbar-title">StockSnake</h1>
+                <h1 className="navbar-title">Hack&Stock</h1>
                 <div className="tatra-dark-mini">
                     <img src={logo} alt="Tatra dark mini"/>
                 </div>
