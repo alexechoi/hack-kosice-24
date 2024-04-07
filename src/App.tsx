@@ -9,6 +9,7 @@ import GamesPage from './pages/GamesPage/GamesPage';
 import TradingPage from './pages/TradingPage/TradingPage';
 import { AuthProvider, AuthContext } from './AuthContext';
 import SigninPage from './pages/SigninPage/SigninPage';
+import QuizPage from './pages/QuizPage/QuizPage';
 import ProtectedRoute from './ProtectedRoute';
 import AuthLogger from './AuthLogger';
 
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/games" element={<GamesPage />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/trading" element={<TradingPage />} />
+                    <Route path="/quiz" element={<QuizPage />} />
                 </Route>
                 <Route path="/signin" element={<SigninPage />} />
                 </Routes>

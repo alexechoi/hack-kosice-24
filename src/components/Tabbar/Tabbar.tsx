@@ -20,6 +20,10 @@ export const Tabbar = () => {
                 <span className="icon">🎮</span>
                 <span className="label">Games</span>
             </div>
+            <div className="tab" onClick={() => navigateTo('/quiz')}>
+                <span className="icon">📖</span>
+                <span className="label">Quiz</span>
+            </div>
             <div className="tab" onClick={() => navigateTo('/tips')}>
                 <span className="icon">💡</span>
                 <span className="label">Advice</span>
