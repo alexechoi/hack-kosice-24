@@ -104,7 +104,7 @@ function HomePage() {
       <div className="hero-area">
         <div>
           <h1>Welcome, {userDetails.name}</h1>
-          <p>Your balance: €{userDetails.balance}</p>
+          <p>Your balance: ${userDetails.balance.toFixed(2)}</p>
         </div>
         <button className="tips-button" onClick={handleGetTips}>Get your tips</button>
       </div>
