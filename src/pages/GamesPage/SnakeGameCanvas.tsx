@@ -1,9 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { doc, updateDoc, setDoc, getDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 const SnakeGameCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameIntervalRef = useRef<number | null>(null);
+  const [showInterstitial, setShowInterstitial] = useState(false);
+  const [awardedStock, setAwardedStock] = useState('');
+  const [showTipInterstitial, setShowTipInterstitial] = useState(false);
+  const [tradingTip, setTradingTip] = useState('');
+  const [padding, setPadding] = useState(0);
+
+  const userUid = '46oTvETaa5bgvK5ypnhflntegAi2';
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,40 +60,66 @@ const SnakeGameCanvas: React.FC = () => {
     };
 
     const checkLevelUp = async () => {
-        if (score >= levelThresholds[level - 1]) {
-          clearInterval(gameIntervalRef.current);
+      if (score >= levelThresholds[level - 1]) {
+        clearInterval(gameIntervalRef.current);
+    
+        try {
+          // Call the API to get a trading tip for beginners
+          const response = await axios.post('https://tips-generator-s4ivkzg4ha-uc.a.run.app/get-tip/1', {
+            message: 'Give me a trading tip.'
+          });
+    
+          // Extract the trading tip from the response
+          const tip = response.data.choices[0]?.message?.content;
+    
+          if (tip) {
+            // Display the trading tip using the interstitial
+            setTradingTip(tip);
+            setShowTipInterstitial(true);
+          } else {
+            console.error('Trading tip not found in response:', response.data);
+          }
+        } catch (error) {
+          console.error('Error fetching trading tip:', error);
+        }
+    
+        // Continue the game without level up
+        startGame();
+      }
+    };
+    
+
+      const checkFreeStocks = async () => {
+        if (score >= 1) { // 4 is ONLY FOR DEMO
+          const stocksAvailable = ["AAPL", "AMZN", "MSFT", "NVDA"];
+          const randomIndex = Math.floor(Math.random() * stocksAvailable.length);
+          const selectedStock = stocksAvailable[randomIndex];
+      
+          const stockRef = doc(db, `portfolio/${userUid}/stocks`, selectedStock);
       
           try {
-            // Call the API to get a trading tip for beginners
-            const response = await axios.post('https://tips-generator-s4ivkzg4ha-uc.a.run.app/get-tip/1', {
-              message: 'Give me a trading tip.'
-            });
+            const docSnap = await getDoc(stockRef);
       
-            // Extract the trading tip from the response
-            const tradingTip = response.data.choices[0]?.message?.content;
-      
-            if (tradingTip) {
-              // Display the trading tip
-              alert(`Trading Tip: ${tradingTip}`);
+            if (docSnap.exists()) {
+              await updateDoc(stockRef, {
+                numberOfShares: docSnap.data().numberOfShares + 1
+              });
             } else {
-              console.error('Trading tip not found in response:', response.data);
+              await setDoc(stockRef, {
+                companyName: selectedStock, // You might want to get the company name from an API or a predefined list
+                existing: true,
+                numberOfShares: 1,
+                ticker: selectedStock
+              });
             }
+            // Show the interstitial modal with the stock information
+            setShowInterstitial(true);
+            setAwardedStock(selectedStock);
           } catch (error) {
-            console.error('Error fetching trading tip:', error);
+            console.error('Error updating stock data:', error);
           }
-      
-          // Continue the game without level up
-          startGame();
         }
-      };
-
-    const checkFreeStocks = async () => {
-      if (score >= 4) { // 4 is ONLY FOR DEMO
-        const stocksAvailable = ["AAPL", "AMZN", "MSFT", "NVDA"];
-        const randomIndex = Math.floor(Math.random() * stocksAvailable.length);
-        // TODO get info about stocksAvailable[randomIndex] and update user's stocks
-      }
-    }
+      };      
 
     const updateDirection = (event: MouseEvent) => {
       if (!canvas) return;
@@ -166,7 +201,91 @@ const SnakeGameCanvas: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} width="512" height="512" style={{ background: 'lightgrey' }}></canvas>;
+  useEffect(() => {
+    const calculatePadding = () => {
+      const containerWidth = document.body.clientWidth; // Gets the width of the body, you might want to adjust this based on your actual container
+      const canvasWidth = 512; // Fixed width of the canvas
+      const newPadding = (containerWidth - canvasWidth) / 2;
+      setPadding(newPadding > 0 ? newPadding : 0); // Update the padding state, ensure padding is not negative
+    };
+
+    // Calculate padding on mount and whenever the window is resized
+    calculatePadding();
+    window.addEventListener('resize', calculatePadding);
+
+    return () => {
+      window.removeEventListener('resize', calculatePadding); // Clean up listener
+    };
+  }, []);
+
+  return (
+    <>
+      <canvas ref={canvasRef} width="512" height="512" style={{
+        background: 'lightgrey',
+        display: 'block',
+        marginLeft: `${padding}px`,
+        marginRight: `${padding}px`,
+        marginTop: '20px'
+      }}></canvas>
+      {showInterstitial && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000,
+        }}>
+          <div style={{
+            padding: '20px',
+            background: 'white',
+            borderRadius: '5px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            color: 'black',
+          }}>
+            <h2>Congratulations!</h2>
+            <p>You've been awarded 1 share of {awardedStock}!</p>
+            <button onClick={() => setShowInterstitial(false)}>Close</button>
+          </div>
+        </div>
+      )}
+      {showTipInterstitial && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1001, // Slightly higher to ensure it appears on top if both are triggered
+        }}>
+          <div style={{
+            padding: '20px',
+            background: 'white',
+            borderRadius: '5px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            color: 'black'
+          }}>
+            <h2>Trading Tip</h2>
+            <p>{tradingTip}</p>
+            <button onClick={() => setShowTipInterstitial(false)}>Close</button>
+          </div>
+        </div>
+      )}
+    </>
+  );  
+  
 };
 
 export default SnakeGameCanvas;
