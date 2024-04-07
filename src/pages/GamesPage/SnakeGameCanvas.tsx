@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { doc, updateDoc, setDoc, getDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, getDoc, collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import './GamesPage.css';
 
@@ -90,37 +90,64 @@ const SnakeGameCanvas: React.FC = () => {
     };
     
 
-      const checkFreeStocks = async () => {
-        if (score >= 1) { // 4 is ONLY FOR DEMO
-          const stocksAvailable = ["AAPL", "AMZN", "MSFT", "NVDA"];
-          const randomIndex = Math.floor(Math.random() * stocksAvailable.length);
-          const selectedStock = stocksAvailable[randomIndex];
-      
-          const stockRef = doc(db, `portfolio/${userUid}/stocks`, selectedStock);
-      
-          try {
-            const docSnap = await getDoc(stockRef);
-      
-            if (docSnap.exists()) {
-              await updateDoc(stockRef, {
-                numberOfShares: docSnap.data().numberOfShares + 1
-              });
-            } else {
-              await setDoc(stockRef, {
-                companyName: selectedStock, // You might want to get the company name from an API or a predefined list
-                existing: true,
-                numberOfShares: 1,
-                ticker: selectedStock
-              });
-            }
-            // Show the interstitial modal with the stock information
-            setShowInterstitial(true);
-            setAwardedStock(selectedStock);
-          } catch (error) {
-            console.error('Error updating stock data:', error);
-          }
+    const checkFreeStocks = async () => {
+      console.log("checkFreeStocks started");
+      if (score >= 1) {
+        const stocksAvailable = ["AAPL", "AMZN", "MSFT", "NVDA"];
+        const randomIndex = Math.floor(Math.random() * stocksAvailable.length);
+        const selectedStock = stocksAvailable[randomIndex];
+        console.log(`Selected stock: ${selectedStock}`);
+    
+        // Query the portfolios collection for the user's portfolio based on uid
+        const portfoliosRef = collection(db, 'portfolios');
+        const portfolioQuery = query(portfoliosRef, where("uid", "==", userUid));
+        const portfolioQuerySnapshot = await getDocs(portfolioQuery);
+    
+        if (portfolioQuerySnapshot.empty) {
+          console.error('No portfolio found for the user');
+          return;
         }
-      };      
+    
+        // Assuming the first matching document is the correct one
+        const portfolioDocRef = portfolioQuerySnapshot.docs[0].ref;
+        
+        // Reference to the stocks sub-collection for the found portfolio
+        const stocksRef = collection(portfolioDocRef, 'stocks');
+        // Query to find a stock document with a matching ticker
+        const stockQuery = query(stocksRef, where("ticker", "==", selectedStock));
+        const querySnapshot = await getDocs(stockQuery);
+        console.log(`Stocks found: ${querySnapshot.docs.length}`);
+    
+        try {
+          if (!querySnapshot.empty) {
+            // Stock exists, update the number of shares
+            const stockDocRef = querySnapshot.docs[0].ref;
+            await updateDoc(stockDocRef, {
+              numberOfShares: querySnapshot.docs[0].data().numberOfShares + 1
+            });
+            console.log("Stock updated with additional share");
+          } else {
+            // Stock does not exist, add a new stock document
+            await addDoc(stocksRef, {
+              companyName: selectedStock, // Fetch the company name if necessary
+              existing: true,
+              numberOfShares: 1,
+              ticker: selectedStock
+            });
+            console.log("New stock added to portfolio");
+          }
+          setShowInterstitial(true);
+          setAwardedStock(selectedStock);
+          console.log("Modal shown with stock award");
+        } catch (error) {
+          console.error('Error updating stock data:', error);
+          console.log(`Error details: ${error.message}`);
+        }
+      } else {
+        console.log("Score condition not met");
+      }
+    };
+     
 
     const updateDirection = (event: MouseEvent) => {
       if (!canvas) return;
