@@ -8,6 +8,7 @@ function QuizPage() {
     const [showScore, setShowScore] = useState(false);
     const [score, setScore] = useState(0);
     const [questions, setQuestions] = useState([]);
+    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(-1);
   
     useEffect(() => {
       async function fetchQuestions() {
@@ -33,21 +34,27 @@ function QuizPage() {
       fetchQuestions().catch(console.error);
     }, []);
   
-    const handleAnswerButtonClick = (isCorrect) => {
-      if (isCorrect) {
-        setScore(score + 1);
+    const handleAnswerButtonClick = (isCorrect, index) => {
+        setSelectedAnswerIndex(index); // Set the selected index
+    
+        if (isCorrect) {
+          setScore(score + 1);
+        }
+        // Wait for some time before moving to next question
+        setTimeout(() => {
+          const nextQuestion = currentQuestion + 1;
+          if (nextQuestion < questions.length) {
+            setCurrentQuestion(nextQuestion);
+            setSelectedAnswerIndex(-1); // Reset for next question
+          } else {
+            setShowScore(true);
+          }
+        }, 1000); // 1 second delay before next question
+      };
+    
+      if (questions.length === 0) {
+        return <div>Loading...</div>;
       }
-      const nextQuestion = currentQuestion + 1;
-      if (nextQuestion < questions.length) {
-        setCurrentQuestion(nextQuestion);
-      } else {
-        setShowScore(true);
-      }
-    };
-  
-    if (questions.length === 0) {
-      return <div>Loading...</div>;
-    }
 
     return (
         <div className='quiz-container'>
@@ -65,7 +72,11 @@ function QuizPage() {
               </div>
               <div className='answer-section'>
                 {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                  <button key={index} onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>
+                  <button
+                    key={index}
+                    onClick={() => handleAnswerButtonClick(answerOption.isCorrect, index)}
+                    className={selectedAnswerIndex === index && answerOption.isCorrect ? 'answer-button correct' : 'answer-button'}
+                  >
                     {answerOption.answerText}
                   </button>
                 ))}
