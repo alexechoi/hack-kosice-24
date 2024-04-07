@@ -248,6 +248,7 @@ const SnakeGameCanvas: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             color: 'black',
+            margin: '5px'
           }}>
             <h2>Congratulations!</h2>
             <p>You've been awarded 1 share of {awardedStock}!</p>
@@ -266,7 +267,7 @@ const SnakeGameCanvas: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          zIndex: 1001, // Slightly higher to ensure it appears on top if both are triggered
+          zIndex: 1001,
         }}>
           <div style={{
             padding: '20px',
@@ -275,7 +276,8 @@ const SnakeGameCanvas: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            color: 'black'
+            color: 'black',
+            margin: '5px'
           }}>
             <h2>Trading Tip</h2>
             <p>{tradingTip}</p>
