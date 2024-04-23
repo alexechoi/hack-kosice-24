@@ -1,64 +1,43 @@
-<!-- 
-This repository is to show the cool project you created.
-To make it easier to present, we created this sample, which you can edit and use for your HK project.
--->
+# Hack&Stock - trading and educational platform
 
-![image](.template_images/Top.png)
-
-<p align="center">
-  <a href="https://hackkosice.com">
-    <img src="https://github.com/hackkosice/i-demoed-hk24/assets/41269745/156db290-9b9f-47b3-9268-3c7381081144" height="300px">
-  </a>
-</p>
-
-&nbsp;
-
-<!--
-In the next part, we recommend displaying all important shields for your project: https://github.com/badges/shields
--->
+<img src="readme-src/homepage.png" style="border: 2px solid black">
 
 [![All Contributors](https://img.shields.io/github/contributors/hackkosice/i-demoed-hk24?style=flat-square)](https://github.com/hackkosice/i-demoed-hk24/graphs/contributors)
 [![Activity](https://img.shields.io/github/commit-activity/m/hackkosice/i-demoed-hk24?style=flat-square)](https://github.com/hackkosice/i-demoed-hk24/pulse)  
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![first-timers-only Friendly](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](http://www.firsttimersonly.com/)
 
+## Introduction
 
+This is a project created in a hackathon [Hack Kosice 2024](https://hackkosice.com/2024/) as a 24h challenge for [Tatra banka](https://www.tatrabanka.sk/) - the golden sponsor of the event. The instruction were, overall, to create an investing application with the focus of educating the client and to conviently use some AI-powered features.
 
-A quick short description of what this project is about. It should be explained in
-3 - 4 four sentences to catch the eye of the viewer of the Githu repository. 
-It can contain some technologies, and what is the outcome of the project.
+We wanted to build a simple web app, that could **make a impact** for the people, that have little or no experience in investing or trading. We believe that with some knowledge, the trading can be **available for everyone**, no matter their budget, so we wanted to make it **more accessible** and to **educate** people about this activity.
 
-![image](.template_images/Mid.png)
+Hack&Stock currently provides the mock trading with NASDAQ stocks. It also consists of a fun Snake game, where the client can receive tips on trading and points, for which the client can get a bunch of shares. As an extra educational feature, the app had got implemented a small quiz for training your knowledge about trading and investing.
 
+Additionally it provides AI-generated tips based on the user's activity, portfolio and provided personal information.
 
-## Other Project repositories
+## Tech stack
 
-<!--
-If your project is constructed out of multiple Repositories, you can specify them here:
--->
+**Frontend** part is written React, TypeScript and pure CSS, all built with Vite.
 
-## Documentation
+While we use a few API services (OpenAI API, FinancialModelingPrep), they are being fetched in the Flask framework files. Next to the JavaScript, which is used in the Snake game implementation, these technologies are a part of the **backend** part.
 
-<!--
-Documentation is a crucial part of every project, but also maybe during the hackathon, you did not have time to create it. We recommend coming back later and filling in this part, for example, with https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
--->
+We chose the Google Firebase as a **database** solution.
 
+## How to launch it
+Move to the root directory ``hack-kosice-24`` and run the script ``npm install``.
+Then, run ``npm run dev`` and open a localhost on the port, which the latest command outputs.
+*By default it should be http://localhost:5173/.*
 
-## Contributors ✨
+To get the stock prices running, get the correct API key on financialmodelingprep.com website.
 
-Thanks go to these wonderful people
-<!--
-Here, you can show off all your cool teammates with whom you created this project.
-If you want to automate it, you can use a cool bot: https://allcontributors.org/
--->
+<!-- TODO - how to actually set up Firebase? xd-->
+And finally, to run the database, the Firebase account...
 
-## License
-
-<!-- You can use this section to specify the license for this project under which it can be distributed. -->
-
-## Thanks
-
-<!-- You can use this section to thank people who helped you create this awesome project outside of your team -->
-
-![image](.template_images/Bot.png)
-
+## Contributors
+**The Hack Kosice 2024 TBC team members are:**
+[Alex Choi](https://github.com/alexechoi>)
+[Andrij Popowytsch](https://github.com/andrek13)
+[Nicol Fedurcová](https://github.com/NicolFedurcova)
+[Zdeněk Vychodil](https://github.com/ZirkonCZ)

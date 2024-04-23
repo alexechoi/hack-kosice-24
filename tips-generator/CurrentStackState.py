@@ -33,6 +33,6 @@ def calculate_growth(api_key, symbol):
     return (latest_price, 'grow', percentage_change) if percentage_change > 0 else (latest_price, 'fall', percentage_change)
 
 # Usage
-api_key = "D7CnbrensDxLw5wvdKXSlFHaq90jewFJ"
+api_key = "" # TODO insert API key
 symbol = "AAPL"
 print(calculate_growth(api_key, symbol))
