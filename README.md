@@ -38,6 +38,6 @@ And finally, to run the database, the Firebase account...
 ## Contributors
 **The Hack Kosice 2024 TBC team members are:**
 [Alex Choi](https://github.com/alexechoi>)
-[Andrij Popowytsch](https://github.com/andrek13)
+[Andrii Popovych](https://github.com/andrek13)
 [Nicol Fedurcová](https://github.com/NicolFedurcova)
 [Zdeněk Vychodil](https://github.com/ZirkonCZ)
